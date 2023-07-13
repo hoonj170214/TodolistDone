@@ -2,7 +2,7 @@
 const taskInput = document.getElementById('taskInput');
 const addButton = document.getElementById('addButton');
 const taskList = document.getElementById('taskList');
-let tasks = [];
+let tasks = []; //배열 값은 바뀔 수 있어야 하기 때문에 const => let
 
 //addButton이 클릭되면 이벤트가 발생하는 리스너를 추가해주세요.
 addButton.addEventListener('click', addTask);
