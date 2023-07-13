@@ -61,7 +61,15 @@ function createTaskItem(taskText) {
 }
 
 //할일 완료 함수
-function completeTask() {}
+function completeTask(event) {
+  console.log(event);
+  //closest : 가장 가까운 00태그(여기서는 li)를 찾아라
+  const taskItem = event.target.closest('li');
+  taskItem.classList.toggle('completed');
+}
 
 //할일 삭제 함수
-function removeTask() {}
+function removeTask(event) {
+  const taskItem = event.target.closest('li');
+  taskItem.parentNode.removeChild(taskItem);
+}
