@@ -2,6 +2,7 @@
 const taskInput = document.getElementById('taskInput');
 const addButton = document.getElementById('addButton');
 const taskList = document.getElementById('taskList');
+let tasks = [];
 
 //addButton이 클릭되면 이벤트가 발생하는 리스너를 추가해주세요.
 addButton.addEventListener('click', addTask);
@@ -41,6 +42,8 @@ function addTask() {
   if (taskText !== '') {
     const taskItem = createTaskItem(taskText);
     taskList.appendChild(taskItem);
+    tasks.push(taskText);
+    saveTask(tasks);
     taskInput.value = '';
   }
 }
@@ -62,7 +65,6 @@ function createTaskItem(taskText) {
 
 //할일 완료 함수
 function completeTask(event) {
-  console.log(event);
   //closest : 가장 가까운 00태그(여기서는 li)를 찾아라
   const taskItem = event.target.closest('li');
   taskItem.classList.toggle('completed');
@@ -73,3 +75,22 @@ function removeTask(event) {
   const taskItem = event.target.closest('li');
   taskItem.parentNode.removeChild(taskItem);
 }
+
+//로컬 저장소에 저장하기 (saveTask())
+function saveTask(tasks) {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+//로컬 저장소에서 불러오기(loadTask())
+function loadTask() {
+  const savedTasks = localStorage.getItem('tasks');
+  tasks = JSON.parse(savedTasks);
+
+  //생성해서 화면에다가 그려줘야죠.
+  for (let i = 0; i < tasks.length; i++) {
+    const taskItem = createTaskItem(taskText[i]);
+    taskList.appendChild(taskItem);
+  }
+}
+
+//창이 새로고침이나, 처음 로딩되었을 때, 불러오기를 실행
+window.addEventListener('load', loadTask);
