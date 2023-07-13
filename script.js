@@ -5,7 +5,7 @@ const taskList = document.getElementById('taskList');
 
 //addButton이 클릭되면 이벤트가 발생하는 리스너를 추가해주세요.
 addButton.addEventListener('click', addTask);
-
+/*
 //addTask 함수를 만든다.
 function addTask() {
   // 인풋창에 입력된 텍스트가 있어야 한다. taskText
@@ -35,3 +35,33 @@ function removeTask(event) {
   const taskItem = event.target;
   taskItem.parentNode.removeChild(taskItem);
 }
+*/
+function addTask() {
+  const taskText = taskInput.value.trim();
+  if (taskText !== '') {
+    const taskItem = createTaskItem(taskText);
+    taskList.appendChild(taskItem);
+    taskInput.value = '';
+  }
+}
+//리스트(Todo) 생성 함수 선언
+function createTaskItem(taskText) {
+  //li 태그 생성하여 taskItem 변수를 지정
+  const taskItem = document.createElement('li');
+  taskItem.textContent = taskText;
+  taskItem.addEventListener('click', completeTask);
+
+  //버튼 태그 생성
+  const removeButton = document.createElement('button');
+  //삭제 버튼
+  removeButton.textContent = '삭제💢';
+  removeButton.addEventListener('click', removeTask);
+  taskItem.appendChild(removeButton);
+  return taskItem;
+}
+
+//할일 완료 함수
+function completeTask() {}
+
+//할일 삭제 함수
+function removeTask() {}
